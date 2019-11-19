@@ -2,27 +2,47 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Http\Request;
+
 abstract class QueryFilter
 {
-    protected $builder;
+    protected $query;
     protected $request;
 
-    public function __construct($builder, $request)
+    /**
+     * Сохраняем входящие запросы
+     *
+     * QueryFilter constructor.
+     * @param Request $request
+     */
+    public function __construct(Request $request)
     {
-        $this->builder = $builder;
         $this->request = $request;
     }
 
-    public function apply()
+    /**
+     * По названию request определяем какой метод использовать
+     *
+     * @param $query
+     * @return mixed
+     */
+    public function apply($query)
     {
+        $this->query = $query;
+
         foreach ($this->filters() as $filter => $value) {
             if (method_exists($this, $filter) && !empty($value)) {
                 $this->$filter($value);
             }
         }
-        return $this->builder;
+        return $this->query;
     }
 
+    /**
+     * Собираем все request
+     *
+     * @return array
+     */
     public function filters()
     {
         return $this->request->all();

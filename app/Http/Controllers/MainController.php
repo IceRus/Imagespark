@@ -9,14 +9,13 @@ use Illuminate\Http\Request;
 class MainController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Вывод Главной с фильтром
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request)
+    public function index(Request $request, UsersFilter $filters)
     {
-        $users = User::with('cities');
-        $users = (new UsersFilter($users, $request))->apply()->get();
+        $users = User::with('cities')->filter($filters)->get();
 
         $cities = City::get();
 

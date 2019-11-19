@@ -15,7 +15,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'second_name','last_name', 'email'
+        'name', 'second_name', 'last_name', 'email'
     ];
 
     /**
@@ -27,8 +27,26 @@ class User extends Authenticatable
         //
     ];
 
-    public function cities(){
+    /**
+     * Определить отношение «многие ко многим», user с cities в отдельной таблице users_city
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function cities()
+    {
         return $this->belongsToMany('App\Models\City', 'users_cities', 'user_id', 'city_id');
+    }
+
+    /**
+     *  Делаем скоуп, для фильтра
+     *
+     * @param $query
+     * @param $filters
+     * @return mixed
+     */
+    public function scopeFilter($query, $filters)
+    {
+        return $filters->apply($query);
     }
 
 }
