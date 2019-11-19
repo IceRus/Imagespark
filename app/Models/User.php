@@ -27,4 +27,8 @@ class User extends Authenticatable
         //
     ];
 
+    public function cities(){
+        return $this->belongsToMany('App\Models\City', 'users_cities', 'user_id', 'city_id');
+    }
+
 }

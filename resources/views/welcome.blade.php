@@ -67,7 +67,7 @@
     </style>
 </head>
 <body>
-<div class="flex-center position-ref full-height">
+<div class="flex-center position-ref">
     <div class="content container">
         <div class="title m-b-md">
             Imagespark
@@ -76,18 +76,24 @@
             <thead>
             <tr>
                 <th scope="col">Id</th>
-                <th scope="col">First</th>
-                <th scope="col">Last</th>
-                <th scope="col">Handle</th>
+                <th scope="col">Имя</th>
+                <th scope="col">Фамилия</th>
+                <th scope="col">Отчество</th>
+                <th scope="col">Город</th>
+                <th scope="col">Email</th>
             </tr>
             </thead>
             <tbody>
-            <tr>
-                <th scope="row">1</th>
-                <td>Mark</td>
-                <td>Otto</td>
-                <td>@mdo</td>
-            </tr>
+            @foreach($users as $user)
+                <tr>
+                    <th scope="row">{{ $user->id }}</th>
+                    <td>{{ $user->name }}</td>
+                    <td>{{ $user->second_name }}</td>
+                    <td>{{ $user->last_name }}</td>
+                    <td>{{ $user->cities()->pluck('name')[0] }}</td>
+                    <td>{{ $user->email }}</td>
+                </tr>
+            @endforeach
             </tbody>
         </table>
     </div>
