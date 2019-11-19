@@ -9,6 +9,7 @@
 
     <!-- Fonts -->
     <link href="https://fonts.googleapis.com/css?family=Raleway:100,600" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet">
     <link href="/css/app.css" rel="stylesheet" type="text/css">
 
     <!-- Styles -->
@@ -16,7 +17,7 @@
         html, body {
             background-color: #fff;
             color: #000;
-            font-family: 'Raleway', sans-serif;
+            font-family: 'Roboto', sans-serif;
             font-weight: 600;
             height: 100vh;
             margin: 0;
@@ -49,6 +50,7 @@
         .title {
             font-size: 84px;
             font-weight: 100;
+            font-family: 'Raleway', sans-serif;
         }
 
         .links > a {
@@ -72,6 +74,24 @@
         <div class="title m-b-md">
             Imagespark
         </div>
+        <form class="form-inline" action="/">
+            <label class="sr-only" for="form-fullname">ФИО</label>
+            <div class="input-group mb-2 mr-sm-2">
+                <input type="text" class="form-control" id="form-fullname" name="fullname" placeholder="ФИО" value="{{ request()->fullname }}">
+            </div>
+
+            <label class="sr-only" for="form-city">Name</label>
+            <div class="input-group mb-2 mr-sm-2">
+                <select class="custom-select my-1 mr-sm-2" id="form-city" name="city">
+                    <option selected value="">Город...</option>
+                    @foreach($cities as $city)
+                        <option value="{{ $city->id }}" {{request()->city == $city->id ? 'selected' : '' }}>{{ $city->name }}</option>
+                    @endforeach
+                </select>
+            </div>
+
+            <button type="submit" class="btn btn-primary mb-2">Submit</button>
+        </form>
         <table class="table table-striped">
             <thead>
             <tr>
