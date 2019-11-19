@@ -11,13 +11,12 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        // Для теста
-//        $this->call(CityTableSeeder::class);
-//        $this->call(UsersTableSeeder::class);
-//        $this->call(UsersCityTableSeeder::class);
-
         factory(App\Models\City::class, 15)->create();
-        factory(App\Models\UsersCity::class, 100)->create();
 
+        factory(App\Models\User::class, 100)->create()->each(function ($user) {
+            factory(\App\Models\UsersCity::class)->create([
+                'user_id' => $user->id
+            ]);
+        });
     }
 }

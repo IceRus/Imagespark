@@ -15,7 +15,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'second_name','last_name', 'email', 'password',
+        'name', 'second_name','last_name', 'email'
     ];
 
     /**
@@ -24,14 +24,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $hidden = [
-        'password', 'remember_token',
+        //
     ];
 
-    /**
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
-     */
-    public function cities()
-    {
-        return $this->hasMany(UsersCity::class);
-    }
 }
